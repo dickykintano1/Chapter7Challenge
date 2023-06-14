@@ -1,57 +1,27 @@
 const express = require('express');
+const expressSession = require("express-session");
 const app = express();
 const model = require("./models");
 
 app.set('view engine', 'ejs');
-app.use(express.static(__dirname + '/public'));
+// app.use(express.static(__dirname + '/public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(express.static(__dirname + '/public'));
+app.use(
+    expressSession({
+      secret: "ewfewf",
+    })
+  );
+app.use((err, req, res, next) => {
+  res.locals.error = err;
+  const status = err.status || 500;
+  res.status(status);
+  res.render('error');
+  
+});
 
-const { Sequelize, DataTypes } = require('sequelize');
-
-
-const {Client} = require('pg');
-const User = require('./controller/user_game');
-
-
-app.get('/', async (req, res) => {
-    res.render('home');
-    console.log('home');
-})
-
-app.get('/users', new User().find)
-app.get('/users/:id', new User().findById)
-app.post('/users', new User().create)
-app.delete('/users', new User().delete)
-app.put('/users/:id', new User().update)
-
-app.get('/login', (req,res) =>{
-    res.render('login');
-})
-
-app.get('/post', (req,res) =>{
-    res.render('post');
-})
-
-app.post('/post', (req,res) =>{
-    
-})
-
-app.get('/delete', (req,res) =>{
-    res.render('delete')
-})
-
-app.delete('/delete', (req,res) =>{
-    
-})
-
-app.get('/update', (req,res) =>{
-    res.render('update')
-})
-
-app.get('/save', (req,res) =>{
-    res.render('save')
-})
+require("./controller")(app);
 
 model.sequelize.authenticate()
     .then(() => {

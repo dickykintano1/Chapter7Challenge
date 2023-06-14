@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/admin_page.css" type="text/css">
+    <title>Admin Page</title>
+</head>
+<body>
+    <h1>Logged in as Admin</h1>
+    <h2>Your Data:</h2>
+    <table>
+      <tr>
+        <td>ID</td>
+        <td>:</td>
+        <td><%= data.id %></td>
+      </tr>
+      <tr>
+        <td>Username</td>
+        <td>:</td>
+        <td><%= data.username %></td>
+      </tr>
+      <tr>
+        <td>Password</td>
+        <td>:</td>
+        <td><%= data.password %></td>
+      </tr>
+      <tr>
+        <td>Created At</td>
+        <td>:</td>
+        <td><%= data.createdAt %></td>
+      </tr>
+      <tr>
+        <td>Updated At</td>
+        <td>:</td>
+        <td><%= data.updatedAt %></td>
+      </tr>
+    </table>
+    <h3>User Datas:</h3>
+    <% for(var i=0; i < userData.length; i++) { %>
+      <tr className="users-display">
+        <td><%= userData[i].id %></td>
+        <td><%= userData[i].username %></td>
+        <a href="/admin/user-data/<%= userData[i].id%>">See Detail</a>
+        <br>
+      </tr>
+    <% } %>
+    <a href="/logout">Logout</a>
+</body>
+</html>

@@ -1,0 +1,556 @@
+*{
+    margin:0;
+    padding:0;
+    outline:0;
+}
+
+.sections{
+    display: block;
+    width: 100vw;
+    background-color: black;
+    background-repeat: no-repeat;
+    background-attachment: absolute;
+    background-position: center;
+    background-size: cover;
+    height: 100vh;
+    width: 100%;
+}
+
+.text{
+    color: white;
+    text-align: center;
+    font-family: 'Open Sans';
+    font-weight: bold;
+}
+
+.btn-general{
+    background-color: orange;
+    padding: 15px 80px;
+    border-radius: 10px;
+    border: none;
+    font-family: 'Open Sans';
+}
+
+.sect1{
+    background-image: url("../assets/main-bg.jpg");
+}
+
+.sect2{
+    background-image: url("../assets/the-games-bg.jpg");
+}
+
+.sect3{
+    background-image: url("../assets/features.jpg");
+}
+
+.sect4{
+    background-image: url("../assets/requirements.png");
+}
+
+.sect5{
+    background-image: url("../assets/top-score-bg.png");
+}
+
+.sect6{
+    background-image: url("../assets/newsletter.png");
+}
+
+.navbar{
+    background-color: rgba(0,0,0,0.5);
+    height: 10%;
+    position: relative;
+    justify-items: end;
+}
+
+.nav-item{
+    color: white;
+    position: relative;
+    text-decoration: none;
+}
+
+.nav-title{
+    flex-grow: 5;
+    text-align: center;
+}
+
+.nav-item1{
+    position: absolute;
+    margin-left: 7%;
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.nav-item2{
+    position: absolute;
+    margin-left: 25%;
+}
+
+.nav-item3{
+    position: absolute;
+    margin-left: 33%;
+}
+
+.nav-item4{
+    position: absolute;
+    margin-left: 41%;
+}
+
+.nav-item5{
+    position: absolute;
+    margin-left: 49%;
+}
+
+.nav-item6{
+    position: absolute;
+    margin-left: 75%;
+}
+
+.nav-item7{
+    position: absolute;
+    margin-left: 83%;
+}
+
+.page1-container{
+    display: grid;
+    align-items:center;
+    margin-top: 12%;
+}
+
+.p1-text-big{
+    font-size: 75px;
+    margin-bottom: 3%;
+}
+
+.p1-text-small{
+    margin-bottom: 3%;
+    font-size: 25px;
+    font-weight: 200;
+}
+
+.btn-container{
+    background-color: orange;
+    font-family: 'Open Sans';
+    margin: auto;
+    padding: 10px 70px;
+    border-radius: 10px;
+    border: none;
+}
+
+.btn-play{
+    background-color: orange;
+    font-family: 'Open Sans';
+    border: none;
+}
+
+.p1-container1{
+    display: grid;
+}
+
+.p1-text1{
+    margin-top: 15%;
+}
+
+.arrow-down {
+    justify-self: center;
+    color: white;
+    margin-top:0;
+    text-align:center;
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+
+/* page1 */
+/* page2 */
+
+.page2-container{
+    display: grid;
+    height: 100%;
+    grid-template-columns: 30% 70%;
+}
+
+.page2-texts{
+    align-self: center;
+    padding-bottom: 80%;
+    padding-left: 15%;
+}
+
+.page2-carousel{
+    /* position: relative; */
+    justify-self: center;
+    margin: auto;
+    /* width: 25%; */
+}
+
+.p2-text-big{
+    font-size: 55px;
+    text-align: left;
+    margin:0;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.p2-text-small{
+    font-weight: none;
+    font-size: 20px;
+    text-align: left;
+    margin:0;
+    color: white;
+    font-family: 'Open Sans';
+}
+
+.arrow-right {
+    color: white;
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+
+.arrow-left {
+    color:white;
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 48
+}
+
+.page3-container{
+    display:grid;
+    justify-content: end;
+    grid-template-areas: 'container1 container1 container1 container1 container1';
+    margin: 0 20% 0 20%;
+    padding-top: 10%;
+    padding-left: 15%;
+}
+
+.p3-text-small{
+    font-weight: none;
+    font-size: 20px;
+    text-align: left;
+    margin:0;
+    color: white;
+    font-family: 'Open Sans';
+}
+
+.p3-text-big{
+    font-size: 55px;
+    text-align: left;
+    margin:0;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.p3-container1{
+    grid-area: container1;
+    margin-left: 100%;
+}
+
+.p3-container2{
+    grid-area: container2;
+    display: flex;
+    flex-direction: column;
+}
+
+.vl {
+    border-left: 3px solid white;
+    height: 85px;
+    margin-left:2%;
+    top: 0;
+}
+
+.last-circle{
+    margin-top:30px;
+}
+
+.p3-container3{
+    grid-area: container3;
+    display: flex;
+    flex-direction: column;
+    align-items:flex-start;
+    margin-left: 10%;
+}
+
+.p3-text1{
+    color: orange;
+    margin: 0;
+}
+
+.p3-text2{
+    text-align: left;
+}
+
+.p3-text3{
+    color: orange;
+    margin-top: 10px;
+}
+
+.p3-text4{
+    color: orange;
+    margin-top: 10px;
+}
+
+.sect4{
+    position: relative;
+}
+
+.p4-layer{
+    background-image: linear-gradient(to right, rgba(0,0,0,1), rgba(0,0,0,0));
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.page4-container{
+    display: grid;
+    justify-content: start;
+    margin-right: 50%;
+    margin-left: 10%;
+    margin-top: 5%;
+}
+
+.page4-container .text{
+    text-align: left;
+}
+
+.page4-container span{
+    color: orange;
+}
+
+.page4-container p{
+    border: 1px solid #696969;
+    margin:0;
+    padding: 10px 5px 30px 5px;
+}
+
+
+.p4-text1{
+    padding-top: 10%;
+    
+}
+
+.p4-text2{
+    font-size:60px;
+    text-align: left;
+    grid-area: 1 / 1 / span 1 / span 2;
+    margin-bottom: 5%;
+}
+
+.p4-text7{
+    grid-area: 4 / 1 /span 1/ span 2;
+}
+
+.page5-container{
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.p5-container1{
+    display: grid;
+    justify-items: start;
+    margin: 30% 20% 0 20%;
+}
+
+.p5-text-big{
+    text-align: left;
+    font-size: 70px;
+} 
+
+.p5-text-small{
+    font-size: 19px;
+    text-align: left;
+}
+
+.yellow-pic {
+    margin-left:30px;
+    margin-top:23px;
+    position: absolute;
+}
+
+.pic {
+    width: 67px;
+    border-radius: 50px;
+    margin-left: 20px;
+    margin-top: 20px;
+    position:absolute;
+} 
+
+.p5-bio{
+    position: absolute;
+    color: grey;
+    font-size: 15px;
+    text-align:left;
+    margin-left: 120px;
+    margin-top: 22px;
+}
+.p5-bio span{
+    color: orange;
+    font-size: 20px;
+}
+
+.twtr-logo{
+    position: absolute;
+    margin-left: 90%;
+    margin-top: 7%;
+}
+
+.p5-text1{
+    position: absolute;
+    margin-top: 110px;
+    margin-left: 20px;
+    text-align: left;
+}
+
+.p5-text2{
+    color: grey;
+    position: absolute;
+    margin-top: 33%;
+    margin-left: 20px;
+    font-size: 15px;
+}
+
+.evan{
+    display: grid;
+    position: relative;
+    background-color: rgb(25, 25, 25);
+    border-radius: 15px;
+    width: 70%;
+    height: 50%;
+    margin-left: 15%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.jada{
+    display: grid;
+    position: relative;
+    background-color: rgb(25, 25, 25);
+    border-radius: 15px;
+    width: 70%;
+    height: 50%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.aaron{
+    display: grid;
+    position: relative;
+    background-color: rgb(25, 25, 25);
+    border-radius: 15px;
+    width: 70%;
+    height: 50%;
+    margin-left: 15%;
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+
+.p5-container2{
+
+}
+
+.page6-container{
+    position: relative;
+    display: grid;
+    grid-template-columns: 50% 50%;
+}
+
+.p6-container1{
+    position: relative;
+}
+
+.p6-shadow{
+    position: ;
+    width:46vw;
+    margin-top:10px;
+    margin-left: 13%;
+    opacity: 0.75;
+    transform: rotate(-90deg);
+}
+
+.p6-skull{
+    position: absolute;
+    margin-left:35%;
+    width: 20vw;
+    margin-top: 5%;
+}
+
+.p6-container2{
+    position: relative;
+    display: grid;
+    height: 85%;
+    margin-top: 10%;
+    margin-right: 10%;
+}
+
+.p6-text1{
+    font-size: 30px;
+    text-align: left;
+    margin-bottom: 5%;
+}
+
+.p6-text2{
+    font-size: 60px;
+    text-align: left;
+    margin:0;
+}
+
+.p6-text3{
+    text-align: left;
+}
+
+.p6-form{
+    margin-top:8%;
+}
+
+.email-input{
+    color: white;
+    font-size: 15px;
+    width: 50%;
+    padding: 15px 20px;
+    box-sizing: border-box;
+    border: none;
+    border-radius: 4px;
+    background-color: rgb(25, 25, 25);
+    resize: none;
+    margin-right: 3%;
+}
+
+.email-input, select, textarea{
+    color: orange;
+}
+
+.footer-container{
+    display: grid;
+    margin-top: 7%;
+    margin-right: 9%;
+    justify-content: end;
+    grid-template-columns: auto auto auto auto auto auto auto auto auto;
+    column-gap: 4%;
+}
+
+.footer-items{
+    text-decoration: none;
+}
+
+.footer-line{
+    color: grey;
+    margin: 1% 8% 0 8%;
+}
+
+.copyright-text{
+    position: absolute;
+    color: grey;
+    margin-left: 8%;
+}
+
+.terms{
+    font-size:13px;
+    position: absolute;
+    margin-left: 65%;
+}
