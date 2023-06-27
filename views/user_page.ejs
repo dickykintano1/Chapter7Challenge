@@ -50,6 +50,19 @@
         <td><%= biodata ? biodata.gender : '' %></td>
       </tr>
     </table>
+    <h2>Your Game History</h2>
+    <table>
+      <tr>
+        <td>Time</td>
+        <td>:</td>
+        <td><%= history ? history.time : '' %></td>
+      </tr>
+      <tr>
+        <td>Score</td>
+        <td>:</td>
+        <td><%= history ? history.score : '' %></td>
+      </tr>
+    </table>
     <a href="/bio-edit/<%=data.id%>">Edit your Profile</a>
     <a href="/logout">Logout</a>
 </body>

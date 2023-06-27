@@ -1,4 +1,4 @@
-.login-container{
+.signup-container{
     display: flex;
     height: 98vh;
     flex-direction: column;
@@ -7,7 +7,7 @@
     
 }
 
-.login-title{
+.signup-title{
     align-text: center;
     margin: auto 0 5% 0;
 }

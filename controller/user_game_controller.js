@@ -1,201 +1,211 @@
 const models = require('../models');
-const credentials = require("../data/users.json");
+// const credentials = require("../data/users.json");
+// const UserGameBiodata = require('./user_game_biodata_controller');
+// const UserGameHistory = require('./user_game_history_controller');
+const jwt = require("jsonwebtoken");
+const passport = require("../lib/strategies/passport-jwt");
+const checkRole = require("../lib/middleware/check_role");
+
+
 
 module.exports = class User {
-    async allUsers(req, res){
-        try{
-            const data = await models.user_game.findAll({
-                order: [
-                    ['id', 'ASC']
-                ],
-                // include: [models.user_game_history, models.user_game_biodata]
-                include: [{model: models.user_game_history}, {model: models.user_game_biodata}]
-            });
-            const result = {
-                status: 'ok',
-                data: data
-            }
-    
-            res.json(result)
-            // console.log(typeof models.user_game_history)
-        }catch (error){
-            console.log(error)
-        }
-    }
+	async allUsers(req, res){
+		try{
+			const data = await models.user_game.findAll({
+				order: [
+					['id', 'ASC']
+				],
+				include: [{model: models.user_game_history}, {model: models.user_game_biodata}]
+			});
+			const result = {
+				status: 'ok',
+				data: data
+			}
 
-    async showOneUser(req,res){
-        try{
-            const id = parseInt(Object.values(req.params));
-            const userData = await models.user_game.findOne({where:{id: id}})
-            return res.render("user_data_page", {
-                data: userData,
-            });
+			res.json(result)
+		}catch (error){
+			console.log(error)
+		}
+	}
 
-        }catch (error){
-            console.log(error)
-        }
-    }
-    
+	async showOneUser(req,res){
+		try{
+			const id = parseInt(Object.values(req.params));
+			const userData = await models.user_game.findOne({where:{id: id}})
+			return res.render("user_data_page", {
+				data: userData,
+			});
 
-    async userPage(req, res) {
-        const { id, role } = req.session.User;
-        const allUsersData = await models.user_game.findAll();
-        const biodata = await models.user_game_biodata.findOne({where:{userGameId: id}});
-        if (role != "superuser") {
-            return res.render("user_page", {
-                data: req.session.User,
-                biodata: biodata,
-            });
-        } else {
-            return res.render("admin_page", {
-                data: req.session.User,
-                userData: allUsersData,
-            });
-        }
-    }
+		}catch (error){
+			console.log(error)
+		}
+	}
+	
 
-    async mainMenu(req, res){
-        try{
-            res.render("main_menu");
-            
-        }catch (error){
-            console.log(error)
-        }
-    }
+	async userPage(req, res) {
+		const { id, role } = req.session.User;
+		const allUsersData = await models.user_game.findAll();
+		const history = await models.user_game_history.findOne({where:{userGameId: id}});
+		const biodata = await models.user_game_biodata.findOne({where:{userGameId: id}});
+		if (role != "superuser") {
+			return res.render("user_page", {
+				data: req.session.User,
+				biodata: biodata,
+				history: history,
+			});
+		} else {
+			return res.render("admin_page", {
+				data: req.session.User,
+				userData: allUsersData,
+			});
+		}
+	}
 
-    async gamePage(req,res){
-        try{
-            res.render("game");
-        }catch (error){
-            console.log(error)
-        }
-    }
+	async mainMenu(req, res){
+		try{
+			res.render("main_menu");
+				
+		}catch (error){
+			console.log(error)
+		}
+}
 
-    //create or signup new user -- DONE
-    async signUpPage(req, res) {
-        if(req.session.User){
-            return res.render("main_menu");
-        }else{
-            return res.render("signup");
-        }
-    }
+	async gamePage(req,res){
+		try{
+			res.render("game");
+		}catch (error){
+			console.log(error)
+		}
+	}
 
-    //signup process -- DONE
-    async signUp(req, res){
-        try{
-            const {username, password} = req.body;
-            const registeredUser = await models.user_game.findOne({where: {username: username}});
-            if(!username || !password){
-                return res.status(400).send('Username and Password required');
-            } else if (registeredUser !== null){
-                res.send('Username taken!')
-            } else {
-                await models.user_game.create({
-                    username: username,
-                    password: password,
-                    role: "user"
-                })
-                // const userData = models.user_game.findOne({where: {username: username}})
-                // res.render("user_page", {
-                //     data: userData,
-                // });
-                res.redirect('/login');
-            }
-            
-        }catch (error){
-            console.log(error)
-        }
-    }
+	//create or signup new user
+	async signUpPage(req, res) {
+		if(req.session.User){
+			return res.render("main_menu");
+		}else{
+			return res.render("signup");
+		}
+	}
 
-    //login page -- DONE
-    async loginPage(req, res) {
-        if (req.session.User) {
-            res.render("main_menu");
-        } else {
-            res.render("login");
-        }
-    }
+	//signup process
+	async signUp(req, res){
+		try{
+			const {username, password} = req.body;
+			const registeredUser = await models.user_game.findOne({where: {username: username}});
+			if(!username || !password){
+				return res.status(400).send('Username and Password required');
+			} else if (registeredUser !== null){
+				res.send('Username taken!')
+			} else {
+				const newUser = await models.user_game.create({
+					username: username,
+					password: password,
+					role: "user"
+				})
+				// const id = models.user_game.id[models.user_game.length - 1];
+				//make initial empty table for biodata and history
+				await newUser.save()
+
+				await models.user_game_biodata.create({
+					userGameId: newUser.id,
+					fullName: null,
+					city: null,
+					birthday: new Date(0),
+					gender: null
+				})
+
+				await models.user_game_history.create({
+					userGameId: newUser.id,
+					time: null,
+					score: null
+				})
+				res.redirect('/login');
+			}
+				
+		}catch (error){
+				console.log(error)
+		}
+	}
+
+	//login page
+	async loginPage(req, res) {
+		if (req.User) {
+			res.render("main_menu");
+		} else {
+			res.render("login");
+		}
+		// console.log(req.User)
+	}
 
 
-    //login system -- DONE
-    async doLogin(req,res){
-        const { username, password } = req.body;
-        const foundIndex = await models.user_game.findOne({where: {username: username}});
-        try{
-            if (foundIndex == null){
-                res.send('user not found');
+	//login system
+	async doLogin(req,res){
+		const { username, password } = req.body;
+		const foundIndex = await models.user_game.findOne({where: {username: username}});
+		try{
+			if (foundIndex == null){
+				res.send('user not found');
+			} else if (foundIndex.username == username && foundIndex.password == password){
+				// req.session.User = foundIndex;
+				const payload = {
+					id: foundIndex.id,
+					username: foundIndex.username,
+				};
+				const token = jwt.sign(payload, "bebasapapun")
+				// res.render("main_menu")
+				console.log(token);
+			} else {
+				res.send('wrong username or password')
+			}
+		} catch(err){
+			res.send(err, 'catch')
+		}
+	}
 
-            } else if (foundIndex.username == username && foundIndex.password == password){
+	//logout
+	async logout(req, res) {
+		req.session.destroy(() => {
+			return res.redirect("/login");
+		});
 
-                req.session.User = foundIndex;
-                res.render("main_menu")
-            } else {
-                res.send('wrong username or password')
-            }
-        } catch(err){
-            res.send(err, 'catch')
-        }
-    }
+		}
 
-    //logout -- DONE
-    async logout(req, res) {
-        req.session.destroy(() => {
-          return res.redirect("/login");
-        });
+	async update(req, res){
+		try{
+			const {id} = req.params;
+			const data = await models.user_game.findOne({
+				where: {
+					id: id,
+				}
+			});
+			data.username = username;
+			data.password = password;
+			await data.save();
+			res.redirect("/user");
 
-      }
+		}catch (error){
+			console.log(error)
+		}
+	}
 
-    async update(req, res){
-        try{
-            // const {id} = parseInt(Object.values(req.params));
-            const {id} = req.params;
-            const data = await models.user_game.findOne({
-                where: {
-                    id: id,
-                }
-            });
-            data.username = username;
-            data.password = password;
-            await data.save();
+	async delete(req, res){
+		try{
+			const {id} = req.params;
+			const data = await models.user_game.findOne({
+				where: {
+					id: id,
+				}
+			});
 
-            // const result ={
-            //     status: 'created',
-            //     data: data
-            // }
+			await data.destroy();
+			res.redirect("/user");
+		}catch (error){
+			console.log(error)
+		}
+	}
 
-            // res.json(result);
-            res.redirect("/user");
-
-        }catch (error){
-            console.log(error)
-        }
-    }
-
-    async delete(req, res){
-        try{
-            // const {id} = parseInt(Object.values(req.params));
-            const {id} = req.params;
-            const data = await models.user_game.findOne({
-                where: {
-                    id: id,
-                }
-            });
-
-            await data.destroy();
-            // const result = {
-            //     status: 'deleted',
-            //     data: data
-            // }
-    
-            // res.json(result);
-            res.redirect("/user");
-        }catch (error){
-            console.log(error)
-        }
-    }
-
-    async tests(req,res){
-        const data = models.user_game.user_game_biodata
-        console.log(data);
-    }
+	// async tests(req,res){
+	//     const data = models.user_game.user_game_biodata
+	//     console.log(data);
+	// }
 }

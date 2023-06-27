@@ -4,14 +4,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/signup.css" type="text/css">
     <title>Signup</title>
 </head>
 <body>
-    <form name="signUpForm" action="/signup" onsubmit="" method="post">
-        <input type="text" name="username" placeholder="Username">
-        <input type="text" name="password" placeholder="Password">
-        <button type="submit">Signup</button>
-    </form>
+    <div class="signup-container">
+        <h1 class="signup-title">Sign Up</h1>
+        <form class="form-container" name="signUpForm" action="/signup" onsubmit="" method="post">
+            <input class="username" type="text" name="username" placeholder="Username">
+            <input class="password" type="text" name="password" placeholder="Password">
+            <button type="submit">Signup</button>
+        </form>
+    </div>
     
 </body>
 </html>

@@ -20,8 +20,8 @@ module.exports = (sequelize, DataTypes) => {
   }
   UserGameHistory.init({
     userGameId: DataTypes.INTEGER,
-    time: DataTypes.TIME,
-    score: DataTypes.INTEGER
+    time: {type: DataTypes.TIME, allowNull:true},
+    score: {type: DataTypes.INTEGER, allowNull:true},
   }, {
     sequelize,
     freezeTableName:true,

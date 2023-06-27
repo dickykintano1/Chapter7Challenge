@@ -19,10 +19,10 @@ module.exports = (sequelize, DataTypes) => {
   UserGameBiodata.init(
     {
       userGameId: DataTypes.INTEGER,
-      fullName: DataTypes.STRING(100),
-      city: DataTypes.STRING(100),
-      birthday: DataTypes.DATE,
-      gender: DataTypes.STRING(10)
+      fullName: {type: DataTypes.STRING(100), allowNull:true},
+      city: {type: DataTypes.STRING(100), allowNull:true},
+      birthday: {type: DataTypes.DATE, allowNull:true},
+      gender: {type: DataTypes.STRING(10), allowNull:true}
     }, {
       sequelize,
       freezeTableName:true,
