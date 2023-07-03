@@ -1,32 +1,35 @@
 const express = require('express');
-const expressSession = require("express-session");
+const expressSession = require('express-session');
 const app = express();
-const model = require("./models");
-const jwt = require("jsonwebtoken");
-const passport = require("./lib/strategies/passport-jwt");
-const checkRole = require("./lib/middleware/check_role");
+const model = require('./models');
+const jwt = require('jsonwebtoken');
+const flash = require('express-flash');
+const passport = require('./lib/strategies/passport-jwt');
 
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static(__dirname + '/public'));
 
 app.set('view engine', 'ejs');
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(express.static(__dirname + '/public'));
+
+
+app.use(expressSession({
+    secret: "ewfewf",
+    // resave: false,
+    // saveUninitialized: false,
+  }));
+
 app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash());
 
-
-// app.use(
-//     expressSession({
-//       secret: "ewfewf",
-//     })
-//   );
-  
-app.use((err, req, res, next) => {
-  res.locals.error = err;
-  const status = err.status || 500;
-  res.status(status);
-  res.render('error');
-  
-});
+// app.use((err, req, res, next) => {
+//   res.locals.error = err;
+//   const status = err.status || 500;
+//   res.status(status);
+//   res.render('error');
+// });
 
 require("./controller")(app);
 

@@ -4,7 +4,6 @@ const models = require('../models');
 // const UserGameHistory = require('./user_game_history_controller');
 const jwt = require("jsonwebtoken");
 const passport = require("../lib/strategies/passport-jwt");
-const checkRole = require("../lib/middleware/check_role");
 
 
 
@@ -47,7 +46,8 @@ module.exports = class User {
 		const allUsersData = await models.user_game.findAll();
 		const history = await models.user_game_history.findOne({where:{userGameId: id}});
 		const biodata = await models.user_game_biodata.findOne({where:{userGameId: id}});
-		if (role != "superuser") {
+		if (role == "user") {
+			console.log('user attempt to home')
 			return res.render("user_page", {
 				data: req.session.User,
 				biodata: biodata,
@@ -134,7 +134,6 @@ module.exports = class User {
 		} else {
 			res.render("login");
 		}
-		// console.log(req.User)
 	}
 
 
