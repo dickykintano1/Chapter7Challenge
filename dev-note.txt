@@ -1,0 +1,1 @@
+- Strategies are included in 'middleware/restrict.js'

@@ -1,17 +1,5 @@
 const models = require('../models');
 
-function padTo2Digits(num) {
-    return num.toString().padStart(2, '0');
-  }
-
-// function formatDate(date) {
-//     return [
-//       date.getFullYear(),
-//       padTo2Digits(date.getMonth() + 1),
-//       padTo2Digits(date.getDate()),
-//     ].join('-');
-// }
-
 module.exports = class UserGameBiodata {
     async edit(req, res) {
         const { id } = req.params;
@@ -63,10 +51,12 @@ module.exports = class UserGameBiodata {
         
         const data = await models.user_game.findOne({where:{id: id}})
         const biodata = await models.user_game_biodata.findOne({where:{userGameId: id}})
+        const history = await models.user_game_history.findOne({where:{userGameId: id}})
         // console.log('HERE ---->', biodata.birthday)
         return res.render("user_page", {
             data: data,
-            biodata: biodata
+            biodata: biodata,
+            history: history
           });
     }
 

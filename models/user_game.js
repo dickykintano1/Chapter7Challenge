@@ -36,15 +36,19 @@ module.exports = (sequelize, DataTypes) => {
       // console.log(password + ' ' + this.password)
     }
 
-    generateToken = function (req) {
+    generateToken = function (req, res) {
       const payload = {
         id: this.id,
         username: this.username
       }
 
-      const rahasia = "ini rahasia"
+      const rahasia = 'ini rahasia'
       const token = jwt.sign(payload, rahasia)
+      console.log(token)
       req.session.accessToken = token
+      // res.cookie("token", token, {
+      //   httpOnly: true
+      // })
     }
 
     static authenticate = async ({username,password}) => {
@@ -56,7 +60,7 @@ module.exports = (sequelize, DataTypes) => {
         if (!isPasswordValid) throw new Error("Wrong Password")
 
         return (user)
-      }
+        }
       catch(err){throw (err)}
     }
     

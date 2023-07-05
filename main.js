@@ -4,7 +4,8 @@ const app = express();
 const model = require('./models');
 const jwt = require('jsonwebtoken');
 const flash = require('express-flash');
-const passport = require('./lib/strategies/passport-jwt');
+const passport = require('./lib/strategies/passport-jwt1');
+const cookieParser = require('cookie-parser')
 
 
 app.use(express.json());
@@ -18,7 +19,10 @@ app.use(expressSession({
     secret: "ewfewf",
     // resave: false,
     // saveUninitialized: false,
-  }));
+  })
+);
+
+app.use(cookieParser());
 
 app.use(passport.initialize());
 app.use(passport.session());
